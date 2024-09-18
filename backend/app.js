@@ -4,6 +4,13 @@ import productRoutes from './routes/product.js'
 import { connectDatabase } from './config/dbConnect.js'
 import errorMiddleware from './middlewares/errors.js'
 
+
+process.on("uncaughtException", (err) =>{
+  console.log(`ERROR: ${err}`)
+  console.log("Shutting down server due to uncaught xception")
+  process.exit(1)
+})
+
 const app = express()
 
 dotenv.config({ path: "backend/config/config.env" })
