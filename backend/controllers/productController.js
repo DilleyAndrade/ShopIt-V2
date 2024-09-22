@@ -14,10 +14,10 @@ export const newProduct = catchAsyncError (async (req, res) =>{
   })
 })
 
-//Read all product => /api/v1/products
+//Get all product => /api/v1/products
 export const getProducts = catchAsyncError (async (req, res) =>{
 
-  const apiFilters = new APIFilters(Product, req.query).search()
+  const apiFilters = new APIFilters(Product, req.query).search().filters()
 
   let products = await apiFilters.query
   let filteredProductsCount = await products.length
