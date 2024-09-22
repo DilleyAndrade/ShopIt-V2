@@ -1,12 +1,29 @@
 import Product from '../models/product.js'
 import ErrorHandler from '../utils/errorHandler.js'
 import catchAsyncError from '../middlewares/catchAsyncError.js'
+import APIFilters from '../utils/apiFilters.js'
+
+//Create new product => /api/v1/admin/products
+export const newProduct = catchAsyncError (async (req, res) =>{
+
+  const product = await Product.create(req.body)
+
+  res.status(200).json({
+    message: 'Product created',
+    products,
+  })
+})
 
 //Read all product => /api/v1/products
 export const getProducts = catchAsyncError (async (req, res) =>{
-  const products = await Product.find()
+
+  const apiFilters = new APIFilters(Product, req.query).search()
+
+  let products = await apiFilters.query
+  let filteredProductsCount = await products.length
 
   res.status(200).json({
+    filteredProductsCount,
     products
   })
 })
@@ -22,16 +39,6 @@ export const getProductDetail = catchAsyncError (async (req, res, next) =>{
 
   res.status(200).json({
     product
-  })
-})
-
-//Create new product => /api/v1/admin/products
-export const newProduct = catchAsyncError (async (req, res) =>{
-  const product = await Product.create(req.body)
-
-  res.status(200).json({
-    message: 'Product created',
-    product,
   })
 })
 
