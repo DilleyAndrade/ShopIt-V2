@@ -4,7 +4,6 @@ import productRoutes from './routes/product.js'
 import { connectDatabase } from './config/dbConnect.js'
 import errorMiddleware from './middlewares/errors.js'
 
-
 process.on("uncaughtException", (err) =>{
   console.log(`ERROR: ${err}`)
   console.log("Shutting down server due to uncaught exception")
@@ -21,7 +20,6 @@ app.use(express.json())
 
 app.use("/api/v1", productRoutes)
 
-//Use error middleware
 app.use(errorMiddleware)
 
 const server = app.listen(process.env.PORT, ()=> {

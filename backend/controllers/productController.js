@@ -10,7 +10,7 @@ export const newProduct = catchAsyncError (async (req, res) =>{
 
   res.status(200).json({
     message: 'Product created',
-    products,
+    product,
   })
 })
 
