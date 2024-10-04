@@ -10,7 +10,9 @@ export const registerUser = catchAsyncError( async (req, res, next) => {
     password,
   })
 
+  const token = user.getJwtToken()
+
   res.status(201).json({
-    success: true,
+    token
   })
 })
