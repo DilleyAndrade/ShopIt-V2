@@ -1,9 +1,11 @@
 import express from 'express'
 import dotenv from'dotenv'
+import cookieParser from 'cookie-parser'
 import productRoutes from './routes/product.js'
 import authRoutes from './routes/auth.js'
 import { connectDatabase } from './config/dbConnect.js'
 import errorMiddleware from './middlewares/errors.js'
+
 
 process.on("uncaughtException", (err) =>{
   console.log(`ERROR: ${err}`)
@@ -18,6 +20,8 @@ dotenv.config({ path: "backend/config/config.env" })
 connectDatabase()
 
 app.use(express.json())
+
+app.use(cookieParser()) //Para acessar a solicitação dos cookies
 
 app.use("/api/v1", productRoutes)
 
